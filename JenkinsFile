@@ -23,8 +23,7 @@ pipeline {
             }
         }
     }
-    post{
-        post {
+    post {
     success {
         script {
             deploy adapters: [
@@ -41,5 +40,4 @@ pipeline {
     }
 }
 
-    }
 }
