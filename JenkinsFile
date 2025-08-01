@@ -1,6 +1,14 @@
 pipeline {
     agent maven-slave
     parameters{
-        choice(ENV: )
+        choice(name:"ENV",choices:["dev","test","prod"],description:"Select the environment")
+    }
+    stages{
+        stage('checkout'){
+            agent {label 'master'}
+            steps{
+                git url : 
+            }
+        }
     }
 }
