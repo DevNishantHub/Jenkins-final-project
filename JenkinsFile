@@ -24,8 +24,22 @@ pipeline {
         }
     }
     post{
-        success{
-            sh 'echo success'     
+        post {
+    success {
+        script {
+            deploy adapters: [
+                tomcat7(
+                    credentialsId: 'af433960-b416-47c7-80e7-2ceda29a3ac8',
+                    path: '',
+                    url: 'http://52.188.184.142:8090/'
+                )
+            ],
+            contextPath: null,
+            war: 'target/com.jenkinsProject.war'
         }
+        sh 'echo ✅ Deployment successful'
+    }
+}
+
     }
 }
