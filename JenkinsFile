@@ -1,5 +1,5 @@
 pipeline {
-    agent maven-slave
+    agent { label 'master' }
     parameters{
         choice(name:"ENV",choices:["dev","test","prod"],description:"Select the environment")
     }
@@ -7,8 +7,25 @@ pipeline {
         stage('checkout'){
             agent {label 'master'}
             steps{
-                git url : 
+                git url : 'https://github.com/DevNishantHub/Jenkins-final-project.git'
             }
+        }
+        stage('build'){
+            agent {label 'Maven_slave'}
+            steps{
+                sh 'mvn clean install'
+            }
+        }
+        stage('Test'){
+            agent {label 'Maven_slave'}
+            steps{
+                sh "echo 'Running tests in ${params.ENV} environment'"
+            }
+        }
+    }
+    post{
+        success{
+            sh 'echo success'     
         }
     }
 }
